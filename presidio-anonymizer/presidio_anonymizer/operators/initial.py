@@ -22,8 +22,23 @@ class Initial(Operator):
         
         for word in words:
             if word:  # Make sure word is not empty
-                # Get first character, capitalize it, and add a period
-                initials.append(word[0].upper() + ".")
+                # Find the first alphanumeric character
+                first_alnum_index = -1
+                for i, char in enumerate(word):
+                    if char.isalnum():
+                        first_alnum_index = i
+                        break
+                
+                if first_alnum_index != -1:
+                    # Preserve everything before the first alphanumeric character
+                    prefix = word[:first_alnum_index]
+                    # Get the first alphanumeric character and capitalize it
+                    initial_char = word[first_alnum_index].upper()
+                    # Combine: prefix + initial + period
+                    initials.append(prefix + initial_char + ".")
+                else:
+                    # If no alphanumeric character found, skip this word
+                    continue
         
         # Join initials with spaces
         return " ".join(initials)
