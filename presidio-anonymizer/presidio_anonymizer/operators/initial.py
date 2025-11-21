@@ -13,8 +13,20 @@ class Initial(Operator):
         :param params: Optional parameters (not used for initial operator).
         :return: The initials of the text.
         """
-        # Minimal implementation for now - just return empty string
-        return ""
+        if not text:
+            return ""
+        
+        # Split text into words and get first character of each word
+        words = text.split()
+        initials = []
+        
+        for word in words:
+            if word:  # Make sure word is not empty
+                # Get first character, capitalize it, and add a period
+                initials.append(word[0].upper() + ".")
+        
+        # Join initials with spaces
+        return " ".join(initials)
 
     def validate(self, params: Dict = None) -> None:
         """Initial does not require any parameters so no validation is needed."""
