@@ -5,25 +5,31 @@
 
 ---
 ### Section 3 Answer
-> Put your answer to section 3 here:
 
-* A written description of the call stack leading to line 133 in operators_factory.py
+#### Call Stack Leading to Line 133
 ```
 From the <module> sample.py (line 35), 
 to the main method in sample.py (line 29), 
 to the run_anonymizer method in the sample.py (line 13)
 to the anonymize method in AnonymizerEngine Class (line 104)
-[complete the call stack here]
+to the _operate method in AnonymizerEngine Class
+to the operate method in EngineMediator Class
+to the create_operator_class method in OperatorsFactory (line 133)
 ```
 
-* How many if/elif branches are used in selecting the operator?
-*Put your answer here*
+See `call-stack.png` for the full call stack screenshot.
 
-* What data structure (a Python data type) exactly is used to select the operator?
-*Put your answer here*
+#### How many if/elif branches are used in selecting the operator?
 
-* Explain how "Strategy" design pattern is reflected here.
+Zero (0). The factory uses dictionary lookup (`.get()`) instead of if/elif statements to select operators.
 
+#### What data structure (a Python data type) exactly is used to select the operator?
+
+Dictionary (Dict). The factory uses a nested dictionary that maps operator names (like "initial", "redact") to their corresponding operator classes.
+
+#### Explain how "Strategy" design pattern is reflected here.
+
+All operators implement the same `Operator` interface with an `operate()` method, making them interchangeable. The factory selects which strategy to use at runtime via dictionary lookup, and new operators can be added without modifying the selection logic.
 
 ---
 
@@ -43,9 +49,10 @@ to the anonymize method in AnonymizerEngine Class (line 104)
 - Presidio Anonymizer [![Pypi Downloads](https://img.shields.io/pypi/dm/presidio-anonymizer.svg)](https://img.shields.io/pypi/dm/presidio-anonymizer.svg)
 - Presidio Image-Redactor [![Pypi Downloads](https://img.shields.io/pypi/dm/presidio-image-redactor.svg)](https://img.shields.io/pypi/dm/presidio-image-redactor.svg)
 - Presidio Structured [![Pypi Downloads](https://img.shields.io/pypi/dm/presidio-structured.svg)](https://img.shields.io/pypi/dm/presidio-structured.svg)
+
 ## What is Presidio
 
-Presidio _(Origin from Latin praesidium ‘protection, garrison’)_ helps to ensure sensitive data is properly managed and governed. It provides fast **_identification_** and **_anonymization_** modules for private entities in text such as credit card numbers, names, locations, social security numbers, bitcoin wallets, US phone numbers, financial data and more.
+Presidio _(Origin from Latin praesidium 'protection, garrison')_ helps to ensure sensitive data is properly managed and governed. It provides fast **_identification_** and **_anonymization_** modules for private entities in text such as credit card numbers, names, locations, social security numbers, bitcoin wallets, US phone numbers, financial data and more.
 
 ![Presidio demo gif](docs/assets/changing_text.gif)
 
